@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
-    // Route::get('/', 'Dashboard@index')->name('home.index');
+    Route::get('/', 'Dashboard@index')->name('home.index');
 
     Route::get('/', function () {
         return view('home.index');
@@ -26,16 +26,23 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/login-proses', 'AuthController@login_proses')->name('login-proses');
     });
 
-    // Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
-    //     Route::get('/dashboard-admin', 'Dashboard@dashboard_admin')->name('dashboard-admin')->middleware('userAkses:admin');
+    Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
+        Route::get('/dashboard-admin', 'Dashboard@dashboard_admin')->name('dashboard-admin');
 
-    //     Route::get('/menu-makanan', 'MenuMakananController@index')->name('menu-makanan')->middleware('userAkses:admin');
-    //     Route::get('/add-menu', 'MenuMakananController@store')->name('add-menu')->middleware('userAkses:admin');
-    //     Route::get('/get-menu', 'MenuMakananController@get')->name('get-menu')->middleware('userAkses:admin');
-    //     Route::get('/show-menu', 'MenuMakananController@show')->name('show-menu')->middleware('userAkses:admin');
-    //     Route::get('/update-menu', 'MenuMakananController@update')->name('update-menu')->middleware('userAkses:admin');
-    //     Route::get('/delete-menu', 'MenuMakananController@delete')->name('delete-menu')->middleware('userAkses:admin');
-    // });
+        Route::get('/kriteria', 'KriteriaController@index')->name('kriteria');
+        Route::post('/add-kriteria', 'KriteriaController@store')->name('add-kriteria');
+        Route::get('/get-kriteria', 'KriteriaController@get')->name('get-kriteria');
+        Route::get('/show-kriteria/{params}', 'KriteriaController@show')->name('show-kriteria');
+        Route::post('/update-kriteria/{params}', 'KriteriaController@update')->name('update-kriteria');
+        Route::delete('/delete-kriteria/{params}', 'KriteriaController@delete')->name('delete-kriteria');
+
+        Route::get('/mahasiswa', 'MahasiswaController@index')->name('mahasiswa');
+        Route::post('/add-mahasiswa', 'MahasiswaController@store')->name('add-mahasiswa');
+        Route::get('/get-mahasiswa', 'MahasiswaController@get')->name('get-mahasiswa');
+        Route::get('/show-mahasiswa/{params}', 'MahasiswaController@show')->name('show-mahasiswa');
+        Route::post('/update-mahasiswa/{params}', 'MahasiswaController@update')->name('update-mahasiswa');
+        Route::delete('/delete-mahasiswa/{params}', 'MahasiswaController@delete')->name('delete-mahasiswa');
+    });
 
     Route::get('/logout', 'AuthController@logout')->name('logout');
 });

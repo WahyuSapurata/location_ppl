@@ -15,7 +15,7 @@ License: For each use you must have a valid license purchased only from above li
 
 <head>
     <base href="../../../">
-    <title>{{ env('APP_NAME') }} | Login</title>
+    <title>{{ config('app.name') }} | Login</title>
     <meta charset="utf-8" />
     <meta name="description"
         content="Si Peka (Sistem Informasi Pengetesan Kemiskinan) Adalah Wadah Perencanaan, Monitoring Pelakasanaan dan Evaluasi Kinerja Program Pengetesan Kemiskinan Terintegrasi Dengan Konsep Kolaborasi Program dan Anggaran." />
@@ -53,21 +53,7 @@ License: For each use you must have a valid license purchased only from above li
         </style>
         <!--end::Page bg image-->
         <!--begin::Authentication - Sign-in -->
-        <div class="d-flex flex-column flex-lg-row flex-column-fluid">
-            <!--begin::Aside-->
-            <div class="d-flex flex-lg-row-fluid">
-                <!--begin::Content-->
-                <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
-                    <!--begin::Image-->
-                    <img class="theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
-                        src="admin/assets/media/auth/agency.png" alt="" />
-                    <img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20"
-                        src="admin/assets/media/auth/agency-dark.png" alt="" />
-                    <!--end::Image-->
-                </div>
-                <!--end::Content-->
-            </div>
-            <!--begin::Aside-->
+        <div class="d-flex flex-column justify-content-center flex-lg-row flex-column-fluid">
             <!--begin::Body-->
             <div
                 class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end px-12 py-10">
@@ -130,11 +116,12 @@ License: For each use you must have a valid license purchased only from above li
                                     <span class="indicator-label">Sign In</span>
                                     <!--end::Indicator label-->
                                 </button>
+                                <a class="pt-5" href="{{ route('landing') }}"><small>Kembali ke landing
+                                        page..</small></a>
                             </div>
                             <!--end::Submit button-->
                         </form>
                         <!--end::Form-->
-                        <a class="mt-5" href="{{ route('landing') }}"><small>Kembali ke landing page..</small></a>
                     </div>
                     <!--end::Content-->
                 </div>

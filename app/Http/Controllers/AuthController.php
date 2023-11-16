@@ -26,7 +26,9 @@ class AuthController extends BaseController
 
     public function authenticated()
     {
-        echo "berhasil";
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('admin.dashboard-admin');
+        }
     }
 
     public function logout()
