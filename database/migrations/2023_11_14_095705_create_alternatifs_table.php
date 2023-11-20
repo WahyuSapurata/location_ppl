@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('alternatifs', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->string('ipk');
-            $table->string('keperibadian');
-            $table->string('kemampuan');
+            $table->string('mobile');
+            $table->string('web');
+            $table->string('desain');
+            $table->string('jaringan');
 
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('nama_mahasiswa');
 
             $table->timestamps();
         });

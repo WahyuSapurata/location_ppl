@@ -50,7 +50,7 @@
             </div>
 
             <div class="menu-item">
-                <a class="menu-link  {{ $path[1] === 'kriteria' ? 'active' : '' }}"
+                <a class="menu-link  {{ $path[1] === 'kritealternatif' ? 'active' : '' }}"
                     href="{{ route('admin.kriteria') }}">
                     <span class="menu-icon">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -62,6 +62,54 @@
                     </span>
                     <span class="menu-title"
                         style="{{ $path[1] === 'kriteria' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Kriteria</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link  {{ $path[1] === 'alternatif' ? 'active' : '' }}"
+                    href="{{ route('admin.alternatif') }}">
+                    <span class="menu-icon">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <img src="{{ $path[1] === 'alternatif' ? url('admin/assets/media/icons/aside/altrenatifact.svg') : url('/admin/assets/media/icons/aside/alternatifdef.svg') }}"
+                                alt="">
+                        </span>
+                        <!--end::Svg Icon-->
+                    </span>
+                    <span class="menu-title"
+                        style="{{ $path[1] === 'alternatif' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Alternatif</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link  {{ $path[1] === 'perangkingan' ? 'active' : '' }}"
+                    href="{{ route('admin.perangkingan') }}">
+                    <span class="menu-icon">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <img src="{{ $path[1] === 'perangkingan' ? url('admin/assets/media/icons/aside/perangkinganact.svg') : url('/admin/assets/media/icons/aside/perangkingandef.svg') }}"
+                                alt="">
+                        </span>
+                        <!--end::Svg Icon-->
+                    </span>
+                    <span class="menu-title"
+                        style="{{ $path[1] === 'perangkingan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Perangkingan</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link  {{ $path[1] === 'perusahaan' ? 'active' : '' }}"
+                    href="{{ route('admin.perusahaan') }}">
+                    <span class="menu-icon">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <img src="{{ $path[1] === 'perusahaan' ? url('admin/assets/media/icons/aside/perusahaanact.svg') : url('/admin/assets/media/icons/aside/perusahaandef.svg') }}"
+                                alt="">
+                        </span>
+                        <!--end::Svg Icon-->
+                    </span>
+                    <span class="menu-title"
+                        style="{{ $path[1] === 'perusahaan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Perusahaan</span>
                 </a>
             </div>
 

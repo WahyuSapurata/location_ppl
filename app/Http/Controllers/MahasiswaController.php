@@ -29,7 +29,6 @@ class MahasiswaController extends BaseController
             $data->nama_mahasiswa = $storeMahasiswaRequest->nama_mahasiswa;
             $data->nim = $storeMahasiswaRequest->nim;
             $data->angkatan = $storeMahasiswaRequest->angkatan;
-            $data->minat = $storeMahasiswaRequest->minat;
 
             if ($storeMahasiswaRequest->hasFile('file')) {
                 $file = $storeMahasiswaRequest->file('file');
@@ -63,7 +62,6 @@ class MahasiswaController extends BaseController
             $data->nama_mahasiswa = $updateMahasiswaRequest->nama_mahasiswa;
             $data->nim = $updateMahasiswaRequest->nim;
             $data->angkatan = $updateMahasiswaRequest->angkatan;
-            $data->minat = $updateMahasiswaRequest->minat;
 
             if ($updateMahasiswaRequest->hasFile('file')) {
                 // Hapus file yang lama sebelum menyimpan yang baru

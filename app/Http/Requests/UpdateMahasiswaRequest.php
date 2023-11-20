@@ -25,7 +25,6 @@ class UpdateMahasiswaRequest extends FormRequest
             'nama_mahasiswa' => 'required',
             'nim' => 'required',
             'angkatan' => 'required',
-            'minat' => 'required',
             'file' => 'nullable',
         ];
     }
@@ -36,7 +35,6 @@ class UpdateMahasiswaRequest extends FormRequest
             'nama_mahasiswa.required' => 'kolom nama_mahasiswa harus di isi',
             'nim.required' => 'kolom nim harus di isi',
             'angkatan.required' => 'kolom angkatan harus di isi',
-            'minat.required' => 'kolom minat harus di isi',
         ];
     }
 }

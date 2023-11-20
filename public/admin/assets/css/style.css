@@ -385,3 +385,7 @@ th[rowspan] {
         padding-right: 30px;
     }
 }
+
+.select2-results__options {
+    text-transform: capitalize;
+}

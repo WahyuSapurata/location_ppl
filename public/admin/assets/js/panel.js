@@ -103,6 +103,7 @@ class Control {
         if (type == "Tambah") {
             $(".form-data")[0].reset();
             $("#from_select").val(null).trigger("change");
+            $(".form-select").val(null).trigger("change");
             $(".form-data").attr("data-type", "add");
         } else {
             $(".form-data").attr("data-type", "update");
@@ -112,6 +113,7 @@ class Control {
                 success: function (res) {
                     if (res.success == true) {
                         $.each(res.data, function (x, y) {
+                            console.log(y);
                             const $selectField = $("select[name='" + x + "[]']");
 
                             if ($selectField.attr("multiple")) {
@@ -144,6 +146,10 @@ class Control {
                                         </div>
                                     </a>`
                                 );
+
+                                const logoInfoContainer = $('#logoInfoContainer');
+                                logoInfoContainer.html(`<img src="/storage/logo/${fileName}" style="max-width:100%;">`);
+
                             } else {
                                 $("input[name='" + x + "']").val(y);
                                 $("select[name='" + x + "']").val(y);
@@ -189,13 +195,16 @@ class Control {
                         })
                         .then(function () {
                             $("#side_form_close").trigger("click");
+                            $('#kt_modal_1').modal('hide');
                             table_.DataTable().ajax.reload();
                             $("form")[0].reset();
                             $("#from_select").val(null).trigger("change");
+                            $(".form-select").val(null).trigger("change");
                         });
                 } else {
                     $("form")[0].reset();
                     $("#from_select").val(null).trigger("change");
+                    $(".form-select").val(null).trigger("change");
                     swal.fire({
                         title: response.message,
                         text: response.data,
@@ -243,10 +252,12 @@ class Control {
                             table_.DataTable().ajax.reload();
                             $("form")[0].reset();
                             $("#from_select").val(null).trigger("change");
+                            $(".form-select").val(null).trigger("change");
                         });
                 } else {
                     $("form")[0].reset();
                     $("#from_select").val(null).trigger("change");
+                    $(".form-select").val(null).trigger("change");
                     swal.fire({
                         title: response.message,
                         text: response.data,
@@ -295,6 +306,7 @@ class Control {
                 } else {
                     $("form")[0].reset();
                     $("#from_select").val(null).trigger("change");
+                    $(".form-select").val(null).trigger("change");
                     swal.fire({
                         title: response.message || "Terjadi kesalahan",
                         text: response.data || "Mohon coba lagi",
@@ -315,6 +327,7 @@ class Control {
 
 
     submitFormMultipartData(url, role_data = null, module = null, method) {
+        console.log(url);
         let this_ = this;
         let table_ = this.table;
 
@@ -346,10 +359,12 @@ class Control {
                             table_.DataTable().ajax.reload();
                             $("form")[0].reset();
                             $("#from_select").val(null).trigger("change");
+                            $(".form-select").val(null).trigger("change");
                         });
                 } else {
                     $("form")[0].reset();
                     $("#from_select").val(null).trigger("change");
+                    $(".form-select").val(null).trigger("change");
                     swal.fire({
                         title: response.message,
                         text: response.data,
@@ -404,46 +419,46 @@ class Control {
         });
     }
 
-    push_select(url, element) {
-        let data_kegiatan;
-
-        // Pertama, lakukan permintaan AJAX untuk mendapatkan data_kegiatan
+    push_select(url, element, type) {
+        let data_nama;
+        // Lakukan permintaan AJAX untuk mendapatkan data_nama
         $.ajax({
-            url: '/apbd/get-all',
+            url: '/admin/get-alternatif',
             method: "GET",
             success: function (res) {
-                $.each(res.data, function (x, y) {
-                    data_kegiatan = y.sub_kegiatan;
+                // Ambil nama_mahasiswa dari setiap item dalam res.data
+                data_nama = res.data.map(item => item.nama_mahasiswa);
+            },
+            error: function (xhr) {
+                alert("gagal");
+            },
+        });
+        // Lakukan permintaan AJAX untuk mendapatkan data terkait
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (res) {
+                $(element).html("");
+                let html = "<option></option>";
+
+                // Filter data yang sudah ada dari data baru
+                let filteredData = res.data.filter(item => !data_nama.includes(item.nama_mahasiswa));
+
+                let selectedData = (type === 'Tambah') ? filteredData : res.data;
+
+                // Loop melalui data yang sudah dipilih
+                selectedData.forEach(item => {
+                    let nama_mahasiswa = item.nama_mahasiswa;
+                    html += `<option value="${nama_mahasiswa}">${nama_mahasiswa}</option>`;
                 });
 
-                // Setelah mendapatkan data_kegiatan, lakukan permintaan AJAX berikutnya
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    success: function (res) {
-                        $(element).html("");
-                        let html = "<option></option>";
-
-                        // Loop melalui data dari permintaan kedua
-                        $.each(res.data, function (x, y) {
-                            if (y.sub_kegiatan !== data_kegiatan) {
-                                html += `<option value="${y.sub_kegiatan}">${y.sub_kegiatan}</option>`;
-                            }
-                        });
-
-                        $(element).html(html);
-                    },
-                    error: function (xhr) {
-                        alert("gagal");
-                    },
-                });
+                $(element).html(html);
             },
             error: function (xhr) {
                 alert("gagal");
             },
         });
     }
-
 
     push_select2(url, element) {
         $.ajax({
@@ -475,16 +490,17 @@ class Control {
     push_select4(data, element) {
         $(element).html("");
         let html = "<option></option>";
-        for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                const options = data[key];
-                html += `<optgroup label="${key}">`;
-                options.forEach((option) => {
-                    html += `<option value="${option.text}">${option.text}</option>`;
-                });
-                html += `</optgroup>`;
-            }
-        }
+        $.each(data, function (x, y) {
+            const nilaiMapping = {
+                'Sangat Baik': '5',
+                'Baik': '4',
+                'Cukup': '3',
+                'Kurang': '2',
+                'Sangat Kurang': '1',
+            };
+
+            html += `<option value="${nilaiMapping[y.text] || ''}">${y.text}</option>`;
+        });
         $(element).html(html);
     }
 
@@ -559,7 +575,7 @@ class Control {
         this.table.DataTable({
             responsive: true,
             pageLength: 10,
-            order: [[0, "desc"]],
+            order: [[0, "asc"]],
             processing: true,
             ajax: url,
             columns: columns,

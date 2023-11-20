@@ -17,7 +17,6 @@ class Mahasiswa extends Model
         'nama_mahasiswa',
         'nim',
         'angkatan',
-        'minat',
         'file',
     ];
 

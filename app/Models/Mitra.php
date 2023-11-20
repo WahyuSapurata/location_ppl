@@ -6,19 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
-class Alternatif extends Model
+class Mitra extends Model
 {
     use HasFactory;
 
-    protected $table = 'alternatifs';
+    protected $table = 'mitras';
     protected $primaryKey = 'id';
     protected $fillable = [
         'uuid',
-        'mobile',
-        'web',
-        'desain',
-        'jaringan',
-        'nama_mahasiswa',
+        'nama_perusahaan',
+        'bidang',
+        'logo',
     ];
 
     protected static function boot()

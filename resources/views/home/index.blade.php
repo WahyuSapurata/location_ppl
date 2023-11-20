@@ -21,6 +21,7 @@ License: For each use you must have a valid license purchased only from above li
         content="Si Peka (Sistem Informasi Pengetesan Kemiskinan) Adalah Wadah Perencanaan, Monitoring Pelakasanaan dan Evaluasi Kinerja Program Pengetesan Kemiskinan Terintegrasi Dengan Konsep Kolaborasi Program dan Anggaran." />
     <meta name="keywords" content="Kemiskinan, perencanaan,monitoring, evaluasi" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
     <meta property="og:title"
@@ -32,10 +33,13 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('admin/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin/assets/plugins/custom/jquery-ui/jquery-ui.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 </head>
 <!--end::Head-->
@@ -74,7 +78,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Mobile menu toggle-->
 
                                 <!--begin::Logo image-->
-                                <a href="/admin/../demo1/landing.html">
+                                <a href="">
                                     <img alt="Logo" src="/admin/assets/media/logos/landing.svg"
                                         class="logo-default h-25px h-lg-30px" />
                                     <img alt="Logo" src="/admin/assets/media/logos/landing-dark.svg"
@@ -83,79 +87,6 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Logo image-->
                             </div>
                             <!--end::Logo-->
-
-                            <!--begin::Menu wrapper-->
-                            <div class="d-lg-block" id="kt_header_nav_wrapper">
-                                <div class="d-lg-block p-5 p-lg-0" data-kt-drawer="true"
-                                    data-kt-drawer-name="landing-menu"
-                                    data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
-                                    data-kt-drawer-width="200px" data-kt-drawer-direction="start"
-                                    data-kt-drawer-toggle="#kt_landing_menu_toggle" data-kt-swapper="true"
-                                    data-kt-swapper-mode="prepend"
-                                    data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav_wrapper'}">
-
-                                    <!--begin::Menu-->
-                                    <div class="menu menu-column flex-nowrap menu-rounded menu-lg-row menu-title-gray-600 menu-state-title-primary nav nav-flush fs-5 fw-semibold"
-                                        id="kt_landing_menu">
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item">
-                                            <!--begin::Menu link-->
-                                            <a class="menu-link nav-link active py-3 px-4 px-xxl-6" href="#kt_body"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
-                                                Home </a>
-                                            <!--end::Menu link-->
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item">
-                                            <!--begin::Menu link-->
-                                            <a class="menu-link nav-link  py-3 px-4 px-xxl-6" href="#how-it-works"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
-                                                How it Works </a>
-                                            <!--end::Menu link-->
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item">
-                                            <!--begin::Menu link-->
-                                            <a class="menu-link nav-link  py-3 px-4 px-xxl-6" href="#achievements"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
-                                                Achievements </a>
-                                            <!--end::Menu link-->
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item">
-                                            <!--begin::Menu link-->
-                                            <a class="menu-link nav-link  py-3 px-4 px-xxl-6" href="#team"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
-                                                Team </a>
-                                            <!--end::Menu link-->
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item">
-                                            <!--begin::Menu link-->
-                                            <a class="menu-link nav-link  py-3 px-4 px-xxl-6" href="#portfolio"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
-                                                Portfolio </a>
-                                            <!--end::Menu link-->
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item">
-                                            <!--begin::Menu link-->
-                                            <a class="menu-link nav-link  py-3 px-4 px-xxl-6" href="#pricing"
-                                                data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">
-                                                Pricing </a>
-                                            <!--end::Menu link-->
-                                        </div>
-                                        <!--end::Menu item-->
-                                    </div>
-                                    <!--end::Menu-->
-                                </div>
-                            </div>
-                            <!--end::Menu wrapper-->
 
                             <!--begin::Toolbar-->
                             <div class="flex-equal text-end ms-1">
@@ -176,22 +107,95 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Title-->
                         <h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mb-15">
                             <span id="kt_typedjs_example_1"></span> <br />
-                            with
+                            Sistem
 
                             <span
                                 style="background: linear-gradient(to right, #12CE5D 0%, #FFD80C 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
-                                <span id="kt_landing_hero_text">The Best Theme Ever</span>
+                                <span id="kt_landing_hero_text">Informasi</span>
                             </span>
                         </h1>
                         <!--end::Title-->
 
                         <!--begin::Action-->
-                        <a href="/admin/../demo1/index.html" class="btn btn-primary">Try Metronic</a>
+                        <button type="button" class="btn btn-primary" data-kt-drawer-show="true"
+                            data-kt-drawer-target="#side_form" id="button-side-form" data-bs-toggle="modal"
+                            data-bs-target="#kt_modal_1">
+                            Daftar
+                        </button>
                         <!--end::Action-->
                     </div>
                     <!--end::Heading-->
                 </div>
                 <!--end::Landing hero-->
+
+                <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Data Mahasiswa</h3>
+
+                                <!--begin::Close-->
+                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                        viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                        <path
+                                            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+                                    </svg>
+                                </div>
+                                <!--end::Close-->
+                            </div>
+
+                            <div class="modal-body">
+                                <form class="form-data" enctype="multipart/form-data">
+                                    <input type="hidden" name="id">
+                                    <input type="hidden" name="uuid">
+                                    <div class="mb-10">
+                                        <label class="form-label">Nama Mahasiswa</label>
+                                        <input type="text" id="nama_mahasiswa" class="form-control"
+                                            name="nama_mahasiswa">
+                                        <small class="text-danger nama_mahasiswa_error"></small>
+                                    </div>
+
+                                    <div class="mb-10">
+                                        <label class="form-label">NIM</label>
+                                        <input type="text" id="nim" class="form-control" name="nim">
+                                        <small class="text-danger nim_error"></small>
+                                    </div>
+
+                                    <div class="mb-10">
+                                        <label class="form-label">Angkatan</label>
+                                        <input type="text" id="angkatan" class="form-control" name="angkatan">
+                                        <small class="text-danger angkatan_error"></small>
+                                    </div>
+
+
+                                    <div class="mb-10">
+                                        <label class="form-label">Transkrip Nilai <small
+                                                style="font-style: italic; color:#EA443E">(pdf)</small></label>
+                                        <input type="file" accept=".pdf" id="file" class="form-control"
+                                            name="file">
+                                        <small class="text-danger file_error"></small>
+                                        <!-- Contoh elemen HTML untuk menampilkan informasi file -->
+                                        <div class="mt-3" id="fileInfoContainer"></div>
+
+                                    </div>
+
+                                    <div class="separator separator-dashed mt-8 mb-5"></div>
+                                    <div class="d-flex gap-5">
+                                        <button type="submit"
+                                            class="btn btn-primary btn-sm btn-submit d-flex align-items-center"><i
+                                                class="bi bi-file-earmark-diff"></i> Simpan</button>
+                                        <button type="reset" id="side_form_close" data-bs-dismiss="modal"
+                                            class="btn mr-2 btn-light btn-cancel btn-sm d-flex align-items-center"
+                                            style="background-color: #ea443e65; color: #EA443E"><i
+                                                class="bi bi-trash-fill" style="color: #EA443E"></i>Batal</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <!--end::Wrapper-->
@@ -221,24 +225,25 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="my-2 me-5">
                         <!--begin::Title-->
                         <div class="fs-1 fs-lg-2qx fw-bold text-white mb-2">
-                            Start With Metronic Today,
+                            Website Pendaftaran Lokasi PPL
 
-                            <span class="fw-normal">Speed Up Development!</span>
+                            <span class="fw-normal">Jurusan Sistem Informasi</span>
                         </div>
                         <!--end::Title-->
 
                         <!--begin::Description-->
                         <div class="fs-6 fs-lg-5 text-white fw-semibold opacity-75">
-                            Join over 100,000 Professionals Community to Stay Ahead
+                            Dapatkan lokasi PPl sesuai nilai pada transkrip nilai
                         </div>
                         <!--end::Description-->
                     </div>
                     <!--end::Content-->
 
                     <!--begin::Link-->
-                    <a href="https://1.envato.market/EA4JP"
-                        class="btn btn-lg btn-outline border-2 btn-outline-white flex-shrink-0 my-2">Purchase on
-                        Themeforest</a>
+                    <button type="button"
+                        class="btn btn-lg btn-outline border-2 btn-outline-white flex-shrink-0 my-2"
+                        data-kt-drawer-show="true" data-kt-drawer-target="#side_form" id="button-side-form"
+                        data-bs-toggle="modal" data-bs-target="#kt_modal_1">Daftar Data Sekarang</button>
                     <!--end::Link-->
                 </div>
                 <!--end::Highlight-->
@@ -256,146 +261,28 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin::Container-->
                 <div class="container">
                     <!--begin::Row-->
-                    <div class="row py-10 py-lg-20">
+                    <div class="row justify-content-center py-10 py-lg-20">
                         <!--begin::Col-->
-                        <div class="col-lg-6 pe-lg-16 mb-10 mb-lg-0">
-                            <!--begin::Block-->
-                            <div class="rounded landing-dark-border p-9 mb-10">
-                                <!--begin::Title-->
-                                <h2 class="text-white">Would you need a Custom License?</h2>
-                                <!--end::Title-->
+                        @foreach ($data as $item)
+                            <div class="col-lg-6 p-lg-16 mb-10 mb-lg-0">
+                                <!--begin::Block-->
+                                <div class="rounded landing-dark-border text-center p-9 mb-10">
+                                    <!--begin::Title-->
+                                    <img src="{{ asset('storage/logo/' . $item->logo) }}" alt=""
+                                        style="width: 100%; border-radius: 10px; margin-bottom: 10px">
+                                    <!--end::Title-->
 
-                                <!--begin::Text-->
-                                <span class="fw-normal fs-4 text-gray-700">
-                                    Email us to
-
-                                    <a href="https://keenthemes.com/support"
-                                        class="text-white opacity-50 text-hover-primary">support@keenthemes.com</a>
-                                </span>
-                                <!--end::Text-->
+                                    <!--begin::Text-->
+                                    <span class="fw-normal fs-4 text-light">
+                                        {{ $item->nama_perusahaan }}
+                                    </span>
+                                    <!--end::Text-->
+                                </div>
+                                <!--end::Block-->
                             </div>
-                            <!--end::Block-->
-
-                            <!--begin::Block-->
-                            <div class="rounded landing-dark-border p-9">
-                                <!--begin::Title-->
-                                <h2 class="text-white">How About a Custom Project?</h2>
-                                <!--end::Title-->
-
-                                <!--begin::Text-->
-                                <span class="fw-normal fs-4 text-gray-700">
-                                    Use Our Custom Development Service.
-
-                                    <a href="/admin/../demo1/pages/user-profile/overview.html"
-                                        class="text-white opacity-50 text-hover-primary">Click to Get a Quote</a>
-                                </span>
-                                <!--end::Text-->
-                            </div>
-                            <!--end::Block-->
-                        </div>
+                        @endforeach
                         <!--end::Col-->
 
-                        <!--begin::Col-->
-                        <div class="col-lg-6 ps-lg-16">
-                            <!--begin::Navs-->
-                            <div class="d-flex justify-content-center">
-                                <!--begin::Links-->
-                                <div class="d-flex fw-semibold flex-column me-20">
-                                    <!--begin::Subtitle-->
-                                    <h4 class="fw-bold text-gray-500 mb-6">More for Metronic</h4>
-                                    <!--end::Subtitle-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://keenthemes.com/faqs"
-                                        class="text-white opacity-50 text-hover-primary fs-5 mb-6">FAQ</a>
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://preview.keenthemes.com/html/metronic/docs"
-                                        class="text-white opacity-50 text-hover-primary fs-5 mb-6">Documentaions</a>
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://www.youtube.com/c/KeenThemesTuts/videos"
-                                        class="text-white opacity-50 text-hover-primary fs-5 mb-6">Video Tuts</a>
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://preview.keenthemes.com/html/metronic/docs/getting-started/changelog"
-                                        class="text-white opacity-50 text-hover-primary fs-5 mb-6">Changelog</a>
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://devs.keenthemes.com/"
-                                        class="text-white opacity-50 text-hover-primary fs-5 mb-6">Support Forum</a>
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://keenthemes.com/blog"
-                                        class="text-white opacity-50 text-hover-primary fs-5">Blog</a>
-                                    <!--end::Link-->
-                                </div>
-                                <!--end::Links-->
-
-                                <!--begin::Links-->
-                                <div class="d-flex fw-semibold flex-column ms-lg-20">
-                                    <!--begin::Subtitle-->
-                                    <h4 class="fw-bold text-gray-500 mb-6">Stay Connected</h4>
-                                    <!--end::Subtitle-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://www.facebook.com/keenthemes" class="mb-6">
-                                        <img src="/admin/assets/media/svg/brand-logos/facebook-4.svg"
-                                            class="h-20px me-2" alt="" />
-
-                                        <span
-                                            class="text-white opacity-50 text-hover-primary fs-5 mb-6">Facebook</span>
-                                    </a>
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://github.com/KeenthemesHub" class="mb-6">
-                                        <img src="/admin/assets/media/svg/brand-logos/github.svg" class="h-20px me-2"
-                                            alt="" />
-
-                                        <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">Github</span>
-                                    </a>
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://twitter.com/keenthemes" class="mb-6">
-                                        <img src="/admin/assets/media/svg/brand-logos/twitter.svg" class="h-20px me-2"
-                                            alt="" />
-
-                                        <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">Twitter</span>
-                                    </a>
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://dribbble.com/keenthemes" class="mb-6">
-                                        <img src="/admin/assets/media/svg/brand-logos/dribbble-icon-1.svg"
-                                            class="h-20px me-2" alt="" />
-
-                                        <span
-                                            class="text-white opacity-50 text-hover-primary fs-5 mb-6">Dribbble</span>
-                                    </a>
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    <a href="https://www.instagram.com/keenthemes" class="mb-6">
-                                        <img src="/admin/assets/media/svg/brand-logos/instagram-2-1.svg"
-                                            class="h-20px me-2" alt="" />
-
-                                        <span
-                                            class="text-white opacity-50 text-hover-primary fs-5 mb-6">Instagram</span>
-                                    </a>
-                                    <!--end::Link-->
-                                </div>
-                                <!--end::Links-->
-                            </div>
-                            <!--end::Navs-->
-                        </div>
-                        <!--end::Col-->
                     </div>
                     <!--end::Row-->
                 </div>
@@ -420,7 +307,7 @@ License: For each use you must have a valid license purchased only from above li
 
                             <!--begin::Logo image-->
                             <span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="https://keenthemes.com">
-                                &copy; 2023 Keenthemes Inc.
+                                &copy; Sapurata Creative.
                             </span>
                             <!--end::Logo image-->
                         </div>
@@ -473,11 +360,12 @@ License: For each use you must have a valid license purchased only from above li
     <script>
         var hostUrl = "assets/";
         var typed = new Typed("#kt_typedjs_example_1", {
-            strings: ["Build An Outstanding Solutions"],
+            strings: ["Pendaftaran Tempat PPL"],
             typeSpeed: 30
         });
     </script>
     <!--begin::Global Javascript Bundle(used by all pages)-->
+    <script src="{{ asset('admin/assets/plugins/custom/jquery-ui/jquery-ui.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('admin/assets/js/scripts.bundle.js') }}"></script><!--begin::Custom Javascript(used by this page)-->
     <!--end::Custom Javascript-->
@@ -504,6 +392,25 @@ License: For each use you must have a valid license purchased only from above li
             });
         </script>
     @endif --}}
+
+    <script src="{{ asset('admin/assets/js/panel.js') }}"></script>
+    <script>
+        let control = new Control();
+
+        $(document).on('click', '#button-side-form', function() {
+            control.overlay_form('Tambah', 'Mahasiswa');
+        })
+
+        $(document).on('submit', ".form-data", function(e) {
+            e.preventDefault();
+            let type = $(this).attr('data-type');
+            if (type == 'add') {
+                control.submitFormMultipartData('/addHome-mahasiswa', 'Tambah',
+                    'Mahasiswa',
+                    'POST');
+            }
+        });
+    </script>
 
 </body>
 <!--end::Body-->

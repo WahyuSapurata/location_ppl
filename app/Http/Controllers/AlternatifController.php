@@ -6,61 +6,77 @@ use App\Http\Requests\StoreAlternatifRequest;
 use App\Http\Requests\UpdateAlternatifRequest;
 use App\Models\Alternatif;
 
-class AlternatifController extends Controller
+class AlternatifController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $module = 'Alternatif';
+        return view('admin.alternatif.index', compact('module'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function get()
     {
-        //
+        $data = Alternatif::all();
+        return $this->sendResponse($data, 'Get data success');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreAlternatifRequest $request)
+    public function store(StoreAlternatifRequest $storeAlternatifRequest)
     {
-        //
+        $data = array();
+        try {
+            $data = new Alternatif();
+
+            $data->mobile = $storeAlternatifRequest->mobile;
+            $data->web = $storeAlternatifRequest->web;
+            $data->desain = $storeAlternatifRequest->desain;
+            $data->jaringan = $storeAlternatifRequest->jaringan;
+            $data->nama_mahasiswa = $storeAlternatifRequest->nama_mahasiswa;
+
+            $data->save();
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), $e->getMessage(), 400);
+        }
+        return $this->sendResponse($data, 'Added data success');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Alternatif $alternatif)
+    public function show($params)
     {
-        //
+        $data = array();
+        try {
+            $data = Alternatif::where('uuid', $params)->first();
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), $e->getMessage(), 400);
+        }
+        return $this->sendResponse($data, 'Show data success');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Alternatif $alternatif)
+    public function update(StoreAlternatifRequest $storeAlternatifRequest, $params)
     {
-        //
+        try {
+            $data = Alternatif::where('uuid', $params)->first();
+            $data->mobile = $storeAlternatifRequest->mobile;
+            $data->web = $storeAlternatifRequest->web;
+            $data->desain = $storeAlternatifRequest->desain;
+            $data->jaringan = $storeAlternatifRequest->jaringan;
+            $data->nama_mahasiswa = $storeAlternatifRequest->nama_mahasiswa;
+
+            $data->save();
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), $e->getMessage(), 400);
+        }
+
+        return $this->sendResponse($data, 'Update data success');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateAlternatifRequest $request, Alternatif $alternatif)
+    public function delete($params)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Alternatif $alternatif)
-    {
-        //
+        $data = array();
+        try {
+            $data = Alternatif::where('uuid', $params)->first();
+            $data->delete();
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), $e->getMessage(), 400);
+        }
+        return $this->sendResponse($data, 'Delete data success');
     }
 }
