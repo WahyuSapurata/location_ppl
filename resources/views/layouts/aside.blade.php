@@ -109,7 +109,22 @@
                         <!--end::Svg Icon-->
                     </span>
                     <span class="menu-title"
-                        style="{{ $path[1] === 'perusahaan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Perusahaan</span>
+                        style="{{ $path[1] === 'perusahaan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Mitra</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
+                <a class="menu-link  {{ $path[1] === 'surat' ? 'active' : '' }}" href="{{ route('admin.surat') }}">
+                    <span class="menu-icon">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <img src="{{ $path[1] === 'surat' ? url('admin/assets/media/icons/aside/suratact.svg') : url('/admin/assets/media/icons/aside/suratdef.svg') }}"
+                                alt="">
+                        </span>
+                        <!--end::Svg Icon-->
+                    </span>
+                    <span class="menu-title"
+                        style="{{ $path[1] === 'surat' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Surat</span>
                 </a>
             </div>
 

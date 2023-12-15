@@ -262,6 +262,7 @@ License: For each use you must have a valid license purchased only from above li
                 <div class="container">
                     <!--begin::Row-->
                     <div class="row justify-content-center py-10 py-lg-20">
+                        <div style="color: white; font-size: 30px">Mitra Kerja Sama</div>
                         <!--begin::Col-->
                         @foreach ($data as $item)
                             <div class="col-lg-6 p-lg-16 mb-10 mb-lg-0">

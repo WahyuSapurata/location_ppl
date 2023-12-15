@@ -63,6 +63,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/show-perusahaan/{params}', 'MitraController@show')->name('show-perusahaan');
         Route::post('/update-perusahaan/{params}', 'MitraController@update')->name('update-perusahaan');
         Route::delete('/delete-perusahaan/{params}', 'MitraController@delete')->name('delete-perusahaan');
+
+        Route::get('/surat', 'Surat@index')->name('surat');
+        Route::post('/add-surat', 'Surat@store')->name('add-surat');
+        Route::get('/get-surat', 'Surat@get')->name('get-surat');
     });
 
     Route::get('/logout', 'AuthController@logout')->name('logout');
