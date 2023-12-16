@@ -461,45 +461,44 @@ class Control {
     }
 
     push_select_surat1(url, element) {
-        // let data_nama;
-        // // Lakukan permintaan AJAX untuk mendapatkan data_nama
-        // $.ajax({
-        //     url: '/admin/get-alternatif',
-        //     method: "GET",
-        //     success: function (res) {
-        //         // Ambil nama_mahasiswa dari setiap item dalam res.data
-        //         data_nama = res.data.map(item => item.nama_mahasiswa);
-        //     },
-        //     error: function (xhr) {
-        //         alert("gagal");
-        //     },
-        // });
-        // Lakukan permintaan AJAX untuk mendapatkan data terkait
+        // Lakukan permintaan AJAX untuk mendapatkan data_nama
         $.ajax({
-            url: url,
+            url: '/admin/get-surat',
             method: "GET",
             success: function (res) {
-                $(element).html("");
-                let html = "<option></option>";
+                // Ambil nama_mahasiswa dari setiap item dalam res.data
+                let data_nama = res.data.map(item => item.nama_mahasiswa);
 
-                // // Filter data yang sudah ada dari data baru
-                // let filteredData = res.data.filter(item => !data_nama.includes(item.nama_mahasiswa));
+                // Lakukan permintaan AJAX untuk mendapatkan data terkait
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    success: function (res) {
+                        $(element).html("");
+                        let html = "<option></option>";
 
-                // let selectedData = (type === 'Tambah') ? filteredData : res.data;
+                        // Filter data yang sudah ada dari data baru
+                        let filteredData = res.data.filter(item => !data_nama.includes(item.nama_mahasiswa));
 
-                // Loop melalui data yang sudah dipilih
-                res.data.forEach(item => {
-                    let nama_mahasiswa = item.nama_mahasiswa;
-                    html += `<option value="${nama_mahasiswa}">${nama_mahasiswa}</option>`;
+                        // Loop melalui data yang sudah dipilih
+                        filteredData.forEach(item => {
+                            let nama_mahasiswa = item.nama_mahasiswa;
+                            html += `<option value="${nama_mahasiswa}">${nama_mahasiswa}</option>`;
+                        });
+
+                        $(element).html(html);
+                    },
+                    error: function (xhr) {
+                        alert("Gagal mengambil data terkait");
+                    },
                 });
-
-                $(element).html(html);
             },
             error: function (xhr) {
-                alert("gagal");
+                alert("Gagal mengambil data_nama");
             },
         });
     }
+
 
     push_select_surat2(url, element) {
         // let data_nama;

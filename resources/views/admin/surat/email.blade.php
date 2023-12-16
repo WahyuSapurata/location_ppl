@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>{{ $mailData['nomor'] }}</h1>
+    Surat Penetapan Lokasi PPL
 </body>
 
 </html>

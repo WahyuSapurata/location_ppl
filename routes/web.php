@@ -67,6 +67,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/surat', 'Surat@index')->name('surat');
         Route::post('/add-surat', 'Surat@store')->name('add-surat');
         Route::get('/get-surat', 'Surat@get')->name('get-surat');
+        Route::get('/get-pdf', 'Surat@pdf')->name('get-pdf');
     });
 
     Route::get('/logout', 'AuthController@logout')->name('logout');

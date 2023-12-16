@@ -10,13 +10,14 @@
                 id="button-side-form"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
                     viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
                     <style>
-                        svg {
+                        #customColor {
                             fill: #ffffff
                         }
                     </style>
-                    <path
+                    <path id="customColor"
                         d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z" />
                 </svg> Kirim Surat</button>
+            {{-- <a href="{{ route('admin.get-pdf') }}" target="_blank">pdf</a> --}}
             <!--end::Title-->
         </div>
         <!--end::Page title-->
@@ -216,8 +217,27 @@
             data: 'mitra',
             className: 'text-center',
         }, {
-            data: 'web',
+            data: null,
             className: 'text-center',
+            render: function(data, type, row, meta) {
+                var status = row.status;
+                return `
+                        <div class="d-flex justify-content-center">
+                            <div class="alert bg-light-success border border-success d-flex justify-content-center py-2 m-0 gap-4 align-items-center"
+                            style="max-width: max-content">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512">
+                                <style>
+                                    svg {
+                                        fill: #15ce21;
+                                    }
+                                </style>
+                                <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+                            </svg>
+                            <div class="fw-bolder text-capitalize">${status}</div>
+                        </div>
+                        </div>
+                    `;
+            }
         }];
         // let columnDefs = [{
         //     targets: -1,
