@@ -171,6 +171,7 @@
 
         $(document).on('click', '#button-side-form', function() {
             control.overlay_form('Tambah', 'Surat');
+            control.push_select_surat1('/admin/get-mahasiswa', '#nama_mahasiswa_select');
         })
 
         $(document).on('submit', ".form-data", function(e) {
@@ -281,7 +282,6 @@
         // }];
 
         $(function() {
-            control.push_select_surat1('/admin/get-mahasiswa', '#nama_mahasiswa_select');
             control.push_select_surat2('/admin/get-perusahaan', '#nama_mitra_select');
             control.initDatatable('/admin/get-surat', columns);
         })
