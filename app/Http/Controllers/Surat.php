@@ -35,7 +35,7 @@ class Surat extends BaseController
         return view('admin.surat.pdf', compact('mailData'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $params)
     {
         // Memisahkan tanggal berdasarkan kata kunci "to"
         $dateParts = explode(' to ', $request->tanggal);
@@ -44,13 +44,16 @@ class Surat extends BaseController
         $startDateStr = trim($dateParts[0]);
         $endDateStr = trim($dateParts[1]);
 
-        $nim = Mahasiswa::where('nama_mahasiswa', $request->nama_mahasiswa)->first();
+        $dataMahasiswa = Mahasiswa::where('uuid', $params)->first();
+        $dataMahasiswa->uuid_dosen = $request->uuid_dosen;
+        $dataMahasiswa->save();
+
         $mailData = [
             'nomor' => $request->nomor,
             'mitra' => $request->mitra,
             'tanggal' => $startDateStr . ' s/d ' . $endDateStr,
-            'nama_mahasiswa' => $request->nama_mahasiswa,
-            'nim' => $nim->nim,
+            'nama_mahasiswa' => $dataMahasiswa->nama_mahasiswa,
+            'nim' => $dataMahasiswa->nim,
         ];
 
         // Generate PDF
@@ -58,16 +61,9 @@ class Surat extends BaseController
         $pdfPath = storage_path('app/surat_ppl.pdf');
         $pdf->save($pdfPath);
 
-        // Save to database and send email
-        $data = new ModelsSurat();
-        $data->nama_mahasiswa = $request->nama_mahasiswa;
-        $data->mitra = $request->mitra;
-        $data->status = 'terkirim';
-        $data->save();
-
         // Send Email with Attachment
-        Mail::to($nim->nim . '@uin-alauddin.ac.id')->send(new Email($mailData, $pdfPath));
+        Mail::to($dataMahasiswa->nim . '@uin-alauddin.ac.id')->send(new Email($mailData, $pdfPath));
 
-        return $this->sendResponse($data, 'Added data success');
+        return $this->sendResponse($dataMahasiswa, 'Added data success');
     }
 }

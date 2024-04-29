@@ -23,17 +23,13 @@ class Kriteria extends FormRequest
     {
         return [
             'nama_kriteria' => 'required',
-            'atribut' => 'required',
-            'bobot' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'nama_kriteria.required' => 'kolom nama_kriteria harus di isi',
-            'atribut.required' => 'kolom atribut harus di isi',
-            'bobot.required' => 'kolom bobot harus di isi',
+            'nama_kriteria.required' => 'kolom nama kriteria harus di isi',
         ];
     }
 }

@@ -169,6 +169,31 @@ License: For each use you must have a valid license purchased only from above li
                                         <small class="text-danger angkatan_error"></small>
                                     </div>
 
+                                    <div class="mb-10">
+                                        <label class="form-label">Kriteria</label>
+                                        <select class="form-select form-select-solid" name="uuid_kriteria"
+                                            aria-label="Default select example" data-placeholder="-- pilih --">
+                                            @foreach ($kriteria as $item)
+                                                <option value="{{ $item->uuid }}">{{ $item->nama_kriteria }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small class="text-danger angkatan_error"></small>
+                                    </div>
+
+                                    <div class="mb-10">
+                                        <label class="form-label">Mitra</label>
+                                        <select class="form-select form-select-solid" name="uuid_mitra[]"
+                                            data-control="select2" data-close-on-select="false"
+                                            data-placeholder="-- pilih --" data-allow-clear="true"
+                                            multiple="multiple">
+                                            @foreach ($data as $item)
+                                                <option value="{{ $item->uuid }}">{{ $item->nama_perusahaan }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <small class="text-danger angkatan_error"></small>
+                                    </div>
+
 
                                     <div class="mb-10">
                                         <label class="form-label">Transkrip Nilai <small

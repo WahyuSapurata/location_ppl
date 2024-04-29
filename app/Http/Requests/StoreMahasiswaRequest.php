@@ -22,6 +22,8 @@ class StoreMahasiswaRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'uuid_kriteria' => 'required',
+            'uuid_mitra' => 'required',
             'nama_mahasiswa' => 'required',
             'nim' => 'required',
             'angkatan' => 'required',
@@ -32,7 +34,9 @@ class StoreMahasiswaRequest extends FormRequest
     public function messages()
     {
         return [
-            'nama_mahasiswa.required' => 'kolom nama_mahasiswa harus di isi',
+            'uuid_kriteria.required' => 'kolom kriteria harus di isi',
+            'uuid_mitra.required' => 'kolom mitra harus di isi',
+            'nama_mahasiswa.required' => 'kolom nama mahasiswa harus di isi',
             'nim.required' => 'kolom nim harus di isi',
             'angkatan.required' => 'kolom angkatan harus di isi',
             'file.required' => 'kolom file harus di isi',

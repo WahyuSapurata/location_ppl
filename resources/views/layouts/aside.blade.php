@@ -34,6 +34,21 @@
             </div>
 
             <div class="menu-item">
+                <a class="menu-link  {{ $path[1] === 'dosen' ? 'active' : '' }}" href="{{ route('admin.dosen') }}">
+                    <span class="menu-icon">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <img src="{{ $path[1] === 'dosen' ? url('admin/assets/media/icons/aside/akunact.svg') : url('/admin/assets/media/icons/aside/akundef.svg') }}"
+                                alt="">
+                        </span>
+                        <!--end::Svg Icon-->
+                    </span>
+                    <span class="menu-title"
+                        style="{{ $path[1] === 'dosen' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Pembimbing</span>
+                </a>
+            </div>
+
+            <div class="menu-item">
                 <a class="menu-link  {{ $path[1] === 'mahasiswa' ? 'active' : '' }}"
                     href="{{ route('admin.mahasiswa') }}">
                     <span class="menu-icon">
@@ -50,7 +65,7 @@
             </div>
 
             <div class="menu-item">
-                <a class="menu-link  {{ $path[1] === 'kritealternatif' ? 'active' : '' }}"
+                <a class="menu-link  {{ $path[1] === 'kriteria' ? 'active' : '' }}"
                     href="{{ route('admin.kriteria') }}">
                     <span class="menu-icon">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -62,38 +77,6 @@
                     </span>
                     <span class="menu-title"
                         style="{{ $path[1] === 'kriteria' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Kriteria</span>
-                </a>
-            </div>
-
-            <div class="menu-item">
-                <a class="menu-link  {{ $path[1] === 'alternatif' ? 'active' : '' }}"
-                    href="{{ route('admin.alternatif') }}">
-                    <span class="menu-icon">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                        <span class="svg-icon svg-icon-2">
-                            <img src="{{ $path[1] === 'alternatif' ? url('admin/assets/media/icons/aside/altrenatifact.svg') : url('/admin/assets/media/icons/aside/alternatifdef.svg') }}"
-                                alt="">
-                        </span>
-                        <!--end::Svg Icon-->
-                    </span>
-                    <span class="menu-title"
-                        style="{{ $path[1] === 'alternatif' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Alternatif</span>
-                </a>
-            </div>
-
-            <div class="menu-item">
-                <a class="menu-link  {{ $path[1] === 'perangkingan' ? 'active' : '' }}"
-                    href="{{ route('admin.perangkingan') }}">
-                    <span class="menu-icon">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                        <span class="svg-icon svg-icon-2">
-                            <img src="{{ $path[1] === 'perangkingan' ? url('admin/assets/media/icons/aside/perangkinganact.svg') : url('/admin/assets/media/icons/aside/perangkingandef.svg') }}"
-                                alt="">
-                        </span>
-                        <!--end::Svg Icon-->
-                    </span>
-                    <span class="menu-title"
-                        style="{{ $path[1] === 'perangkingan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Perangkingan</span>
                 </a>
             </div>
 
@@ -113,7 +96,7 @@
                 </a>
             </div>
 
-            <div class="menu-item">
+            {{-- <div class="menu-item">
                 <a class="menu-link  {{ $path[1] === 'surat' ? 'active' : '' }}" href="{{ route('admin.surat') }}">
                     <span class="menu-icon">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -126,7 +109,7 @@
                     <span class="menu-title"
                         style="{{ $path[1] === 'surat' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Surat</span>
                 </a>
-            </div>
+            </div> --}}
 
         </div>
         <!--end::Menu-->

@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->string('nama_kriteria');
-            $table->string('atribut');
-            $table->string('bobot');
 
             $table->timestamps();
         });

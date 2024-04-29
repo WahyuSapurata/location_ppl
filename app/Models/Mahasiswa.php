@@ -14,10 +14,17 @@ class Mahasiswa extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'uuid',
+        'uuid_kriteria',
+        'uuid_mitra',
+        'uuid_dosen',
         'nama_mahasiswa',
         'nim',
         'angkatan',
         'file',
+    ];
+
+    protected $casts = [
+        'uuid_mitra' => 'array',
     ];
 
     protected static function boot()

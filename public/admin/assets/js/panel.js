@@ -501,19 +501,6 @@ class Control {
 
 
     push_select_surat2(url, element) {
-        // let data_nama;
-        // // Lakukan permintaan AJAX untuk mendapatkan data_nama
-        // $.ajax({
-        //     url: '/admin/get-alternatif',
-        //     method: "GET",
-        //     success: function (res) {
-        //         // Ambil nama_mahasiswa dari setiap item dalam res.data
-        //         data_nama = res.data.map(item => item.nama_mahasiswa);
-        //     },
-        //     error: function (xhr) {
-        //         alert("gagal");
-        //     },
-        // });
         // Lakukan permintaan AJAX untuk mendapatkan data terkait
         $.ajax({
             url: url,
@@ -521,16 +508,30 @@ class Control {
             success: function (res) {
                 $(element).html("");
                 let html = "<option></option>";
-
-                // // Filter data yang sudah ada dari data baru
-                // let filteredData = res.data.filter(item => !data_nama.includes(item.nama_mahasiswa));
-
-                // let selectedData = (type === 'Tambah') ? filteredData : res.data;
-
                 // Loop melalui data yang sudah dipilih
                 res.data.forEach(item => {
-                    let nama_perusahaan = item.nama_perusahaan;
-                    html += `<option value="${nama_perusahaan}">${nama_perusahaan}</option>`;
+                    html += `<option value="${item.uuid}">${item.nama_dosen}</option>`;
+                });
+
+                $(element).html(html);
+            },
+            error: function (xhr) {
+                alert("gagal");
+            },
+        });
+    }
+
+    push_select_mitra(url, element) {
+        // Lakukan permintaan AJAX untuk mendapatkan data terkait
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (res) {
+                $(element).html("");
+                let html = "<option></option>";
+                // Loop melalui data yang sudah dipilih
+                res.data.forEach(item => {
+                    html += `<option value="${item.nama_perusahaan}">${item.nama_perusahaan}</option>`;
                 });
 
                 $(element).html(html);

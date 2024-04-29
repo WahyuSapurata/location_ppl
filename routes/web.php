@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Kriteria;
 use App\Models\Mitra;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/', function () {
         $data = Mitra::all();
-        return view('home.index', compact('data'));
+        $kriteria = Kriteria::all();
+        return view('home.index', compact('data', 'kriteria'));
     })->name('landing');
 
     Route::post('/addHome-mahasiswa', 'MahasiswaController@store')->name('addHome-mahasiswa');
@@ -65,9 +67,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::delete('/delete-perusahaan/{params}', 'MitraController@delete')->name('delete-perusahaan');
 
         Route::get('/surat', 'Surat@index')->name('surat');
-        Route::post('/add-surat', 'Surat@store')->name('add-surat');
+        Route::post('/add-surat/{params}', 'Surat@store')->name('add-surat');
         Route::get('/get-surat', 'Surat@get')->name('get-surat');
         Route::get('/get-pdf', 'Surat@pdf')->name('get-pdf');
+
+        Route::get('/dosen', 'DosenController@index')->name('dosen');
+        Route::post('/add-dosen', 'DosenController@store')->name('add-dosen');
+        Route::get('/get-dosen', 'DosenController@get')->name('get-dosen');
+        Route::get('/show-dosen/{params}', 'DosenController@show')->name('show-dosen');
+        Route::post('/update-dosen/{params}', 'DosenController@update')->name('update-dosen');
+        Route::delete('/delete-dosen/{params}', 'DosenController@delete')->name('delete-dosen');
     });
 
     Route::get('/logout', 'AuthController@logout')->name('logout');

@@ -15,8 +15,6 @@ class Kriteria extends Model
     protected $fillable = [
         'uuid',
         'nama_kriteria',
-        'atribut',
-        'bobot',
     ];
 
     protected static function boot()

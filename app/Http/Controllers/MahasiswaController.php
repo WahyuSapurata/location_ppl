@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMahasiswaRequest;
 use App\Http\Requests\UpdateMahasiswaRequest;
+use App\Models\Kriteria;
 use App\Models\Mahasiswa;
+use App\Models\Mitra;
 use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends BaseController
@@ -18,7 +20,16 @@ class MahasiswaController extends BaseController
     public function get()
     {
         $data = Mahasiswa::all();
-        return $this->sendResponse($data, 'Get data success');
+        $combinedData = $data->map(function ($item) {
+            $dataKriteria = Kriteria::where('uuid', $item->uuid_kriteria)->first();
+            $dataMitra = Mitra::whereIn('uuid', $item->uuid_mitra)->pluck('nama_perusahaan');
+
+            $item->kriteria = $dataKriteria ? $dataKriteria->nama_kriteria : null;
+            $item->mitra = $dataMitra ? $dataMitra->toArray() : null;
+            return $item;
+        });
+
+        return $this->sendResponse($combinedData, 'Get data success');
     }
 
     public function store(StoreMahasiswaRequest $storeMahasiswaRequest)
@@ -26,6 +37,8 @@ class MahasiswaController extends BaseController
         $data = array();
         try {
             $data = new Mahasiswa();
+            $data->uuid_kriteria = $storeMahasiswaRequest->uuid_kriteria;
+            $data->uuid_mitra = $storeMahasiswaRequest->input('uuid_mitra');
             $data->nama_mahasiswa = $storeMahasiswaRequest->nama_mahasiswa;
             $data->nim = $storeMahasiswaRequest->nim;
             $data->angkatan = $storeMahasiswaRequest->angkatan;

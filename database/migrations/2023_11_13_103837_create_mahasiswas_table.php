@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+            $table->uuid('uuid_kriteria');
+            $table->uuid('uuid_dosen')->nullable();
+            $table->json('uuid_mitra');
             $table->string('nama_mahasiswa');
             $table->string('nim');
             $table->string('angkatan');

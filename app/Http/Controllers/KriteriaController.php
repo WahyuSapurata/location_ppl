@@ -26,8 +26,6 @@ class KriteriaController extends BaseController
         try {
             $data = new Kriteria();
             $data->nama_kriteria = $kriteria->nama_kriteria;
-            $data->atribut = $kriteria->atribut;
-            $data->bobot = $kriteria->bobot;
             $data->save();
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
@@ -52,8 +50,6 @@ class KriteriaController extends BaseController
         try {
             $data = Kriteria::where('uuid', $params)->first();
             $data->nama_kriteria = $kriteria->nama_kriteria;
-            $data->atribut = $kriteria->atribut;
-            $data->bobot = $kriteria->bobot;
             $data->save();
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
