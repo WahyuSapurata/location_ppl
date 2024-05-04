@@ -13,7 +13,7 @@
     <meta name="keywords" content="Kemiskinan, perencanaan,monitoring, evaluasi" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="/logo_title.png" />
+    <link rel="shortcut icon" href="{{ asset('logo.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,16 +47,15 @@
                 data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}"
                 data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
                 <!--begin::Brand-->
-                <div class="aside-logo flex-column-auto bg-primary">
+                <div class="aside-logo flex-column-auto" style="background-color: #454ca4">
                     <!--end::sidebar mobile toggle-->
                     <!--begin::Mobile logo-->
                     <div class="app-sidebar-logo d-flex align-items-center flex-grow-1 flex-lg-grow-0"
                         id="kt_app_sidebar_logo">
                         <a href="" class="full-logo">
-                            <img alt="Logo" src="{{ asset('admin/assets/media/logos/default-dark.svg') }}"
-                                class="h-25px app-sidebar-logo-default" />
-                            <img alt="Logo" src="{{ asset('admin/assets/media/logos/default-small.svg') }}"
-                                class="h-20px app-sidebar-logo-minimize" />
+                            <img alt="Logo" src="{{ asset('logo.png') }}" class="h-50px app-sidebar-logo-default" />
+                            <img alt="Logo" src="{{ asset('logo.png') }}"
+                                class="h-15px app-sidebar-logo-minimize" />
                         </a>
                     </div>
 
@@ -110,12 +109,12 @@
                         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
                             <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
                                 data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
-                                class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                                class="page-tlogo_title
 
+                                <!-- <span class="h-20px
+                                border-gray-200 border-start ms-3 mx-2"></span>
 
-                                <!-- <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-
-                                    <small class="text-muted fs-7 fw-bold my-1 ms-1">#XRS-45670</small> -->
+                                <small class="text-muted fs-7 fw-bold my-1 ms-1">#XRS-45670</small> -->
 
                                 <!-- </h1> -->
                                 <!--end::Title-->
