@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMahasiswaRequest;
 use App\Http\Requests\UpdateMahasiswaRequest;
+use App\Models\Dosen;
 use App\Models\Kriteria;
 use App\Models\Mahasiswa;
 use App\Models\Mitra;
@@ -22,10 +23,11 @@ class MahasiswaController extends BaseController
         $data = Mahasiswa::all();
         $combinedData = $data->map(function ($item) {
             $dataKriteria = Kriteria::where('uuid', $item->uuid_kriteria)->first();
-            $dataMitra = Mitra::whereIn('uuid', $item->uuid_mitra)->pluck('nama_perusahaan');
+            $dataDosen = Dosen::where('uuid', $item->uuid_dosen)->first();
 
             $item->kriteria = $dataKriteria ? $dataKriteria->nama_kriteria : null;
-            $item->mitra = $dataMitra ? $dataMitra->toArray() : null;
+            $item->mitra = $item->uuid_mitra;
+            $item->dosen = $dataDosen ? $dataDosen->nama_dosen : null;
             return $item;
         });
 

@@ -14,6 +14,7 @@
                                     <thead class="text-center">
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th>No</th>
+                                            <th>Nama Dosen</th>
                                             <th>Nama Mahasiswa</th>
                                             <th>NIM</th>
                                             <th>Angkatan</th>
@@ -183,6 +184,16 @@
                 return meta.row + meta.settings._iDisplayStart + 1;
             }
         }, {
+            data: 'dosen',
+            className: 'text-center',
+            render: function(data, type, row, meta) {
+                if (data) {
+                    return data;
+                } else {
+                    return '-';
+                }
+            }
+        }, {
             data: 'nama_mahasiswa',
             className: 'text-center',
         }, {
@@ -278,7 +289,7 @@
 
         $(function() {
             control.push_select_surat2('/admin/get-dosen', '#dosen_select');
-            control.push_select_mitra('/admin/get-perusahaan', '#mitra_select');
+            control.push_select_mitra('/admin/get-mahasiswa', '#mitra_select');
             control.initDatatable('/admin/get-mahasiswa', columns, columnDefs);
         })
     </script>

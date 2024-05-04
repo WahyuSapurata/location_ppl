@@ -185,15 +185,24 @@ License: For each use you must have a valid license purchased only from above li
                                         <select class="form-select form-select-solid" name="uuid_mitra[]"
                                             data-control="select2" data-close-on-select="false"
                                             data-placeholder="-- pilih --" data-allow-clear="true"
-                                            multiple="multiple">
+                                            multiple="multiple" id="selectMitra">
                                             @foreach ($data as $item)
-                                                <option value="{{ $item->uuid }}">{{ $item->nama_perusahaan }}
+                                                <option value="{{ $item->nama_perusahaan }}">
+                                                    {{ $item->nama_perusahaan }}
                                                 </option>
                                             @endforeach
+                                            <option value="lainnya">Lainnya</option>
                                         </select>
                                         <small class="text-danger angkatan_error"></small>
                                     </div>
 
+                                    <div id="inputLainnya" style="display: none;">
+                                        <div class="mb-10">
+                                            <label class="form-label">Lainnya</label>
+                                            <input type="text" class="form-control" id="inputLainnyaText"
+                                                name="uuid_mitra[]" placeholder="Masukkan nama perusahaan lainnya">
+                                        </div>
+                                    </div>
 
                                     <div class="mb-10">
                                         <label class="form-label">Transkrip Nilai <small
@@ -431,10 +440,31 @@ License: For each use you must have a valid license purchased only from above li
             e.preventDefault();
             let type = $(this).attr('data-type');
             if (type == 'add') {
-                control.submitFormMultipartData('/addHome-mahasiswa', 'Tambah',
-                    'Mahasiswa',
-                    'POST');
+                // Cek apakah opsi "lainnya" dipilih
+                var selectedOptions = $('#selectMitra').val();
+                if (selectedOptions && selectedOptions.includes('lainnya')) {
+                    // Jika dipilih, hapus nilai "lainnya" dari array
+                    var index = selectedOptions.indexOf('lainnya');
+                    if (index !== -1) {
+                        selectedOptions.splice(index, 1);
+                    }
+                    // Update nilai opsi yang dipilih dalam elemen select
+                    $('#selectMitra').val(selectedOptions);
+                }
+
+                control.submitFormMultipartData('/addHome-mahasiswa', 'Tambah', 'Mahasiswa', 'POST');
             }
+        });
+
+        $(document).ready(function() {
+            $('#selectMitra').on('change', function() {
+                var selectedOptions = $(this).val();
+                if (selectedOptions && selectedOptions.includes('lainnya')) {
+                    $('#inputLainnya').show();
+                } else {
+                    $('#inputLainnya').hide();
+                }
+            });
         });
     </script>
 

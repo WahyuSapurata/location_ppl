@@ -113,7 +113,6 @@ class Control {
                 success: function (res) {
                     if (res.success == true) {
                         $.each(res.data, function (x, y) {
-                            console.log(y);
                             const $selectField = $("select[name='" + x + "[]']");
 
                             if ($selectField.attr("multiple")) {
@@ -531,7 +530,9 @@ class Control {
                 let html = "<option></option>";
                 // Loop melalui data yang sudah dipilih
                 res.data.forEach(item => {
-                    html += `<option value="${item.nama_perusahaan}">${item.nama_perusahaan}</option>`;
+                    $.each(item.mitra, function (x, y) {
+                        html += `<option value="${y}">${y}</option>`;
+                    })
                 });
 
                 $(element).html(html);
