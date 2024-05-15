@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('nim');
             $table->string('angkatan');
             $table->string('file');
+            $table->string('file_surat')->nullable();
             $table->timestamps();
         });
     }

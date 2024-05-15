@@ -452,9 +452,21 @@ License: For each use you must have a valid license purchased only from above li
                     $('#selectMitra').val(selectedOptions);
                 }
 
+                // Periksa dan hapus nilai null dari elemen select
+                selectedOptions = selectedOptions.filter(option => option !== null && option !== '');
+                $('#selectMitra').val(selectedOptions);
+
+                // Periksa dan hapus nilai null dari semua elemen input dalam form
+                $('.form-data :input').each(function() {
+                    if ($(this).val() === null || $(this).val() === '') {
+                        $(this).removeAttr('name');
+                    }
+                });
+
                 control.submitFormMultipartData('/addHome-mahasiswa', 'Tambah', 'Mahasiswa', 'POST');
             }
         });
+
 
         $(document).ready(function() {
             $('#selectMitra').on('change', function() {

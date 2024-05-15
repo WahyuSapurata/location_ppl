@@ -21,6 +21,7 @@ class Mahasiswa extends Model
         'nim',
         'angkatan',
         'file',
+        'file_surat',
     ];
 
     protected $casts = [

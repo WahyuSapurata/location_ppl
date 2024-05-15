@@ -8,6 +8,7 @@ use App\Models\Surat as ModelsSurat;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 
 class Surat extends BaseController
 {
@@ -44,12 +45,14 @@ class Surat extends BaseController
         $startDateStr = trim($dateParts[0]);
         $endDateStr = trim($dateParts[1]);
 
+        $jumlahData = Mahasiswa::count();
+
         $dataMahasiswa = Mahasiswa::where('uuid', $params)->first();
         $dataMahasiswa->uuid_dosen = $request->uuid_dosen;
         $dataMahasiswa->save();
 
         $mailData = [
-            'nomor' => $request->nomor,
+            'nomor' => $jumlahData,
             'mitra' => $request->mitra,
             'tanggal' => $startDateStr . ' s/d ' . $endDateStr,
             'nama_mahasiswa' => $dataMahasiswa->nama_mahasiswa,
@@ -57,12 +60,19 @@ class Surat extends BaseController
         ];
 
         // Generate PDF
-        $pdf = PDF::loadView('admin.surat.pdf', compact('mailData'));
-        $pdfPath = storage_path('app/surat_ppl.pdf');
-        $pdf->save($pdfPath);
+        $html = view('admin.surat.pdf', compact('mailData'))->render();
+
+        $pdfFileName = 'Surat PPl ' . $dataMahasiswa->nama_mahasiswa . time() . '.pdf';
+
+        $pdfFilePath = 'pdf/' . $pdfFileName; // Direktori dalam direktori public
+
+        SnappyPdf::loadHTML($html)->save(public_path($pdfFilePath));
+
+        $dataMahasiswa->file_surat = $pdfFileName;
+        $dataMahasiswa->save();
 
         // Send Email with Attachment
-        Mail::to($dataMahasiswa->nim . '@uin-alauddin.ac.id')->send(new Email($mailData, $pdfPath));
+        Mail::to($dataMahasiswa->nim . '@uin-alauddin.ac.id')->send(new Email($mailData, $pdfFilePath));
 
         return $this->sendResponse($dataMahasiswa, 'Added data success');
     }

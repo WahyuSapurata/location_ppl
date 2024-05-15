@@ -69,8 +69,7 @@
     <div class="container">
         <div class="kop-surat">
             <div class="logo">
-                <img src="https://i0.wp.com/ypmic.or.id/wp-content/uploads/2020/09/logo-uin-png.png?resize=233%2C300&ssl=1"
-                    alt="Logo UIN">
+                <img src="https://uin-alauddin.ac.id/themes//images/favicon.png" alt="Logo UIN">
                 {{-- <img src="{{ asset('logo_uin.png') }}" alt="Logo UIN"> --}}
             </div>
 

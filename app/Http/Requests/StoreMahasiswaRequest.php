@@ -25,7 +25,7 @@ class StoreMahasiswaRequest extends FormRequest
             'uuid_kriteria' => 'required',
             'uuid_mitra' => 'required',
             'nama_mahasiswa' => 'required',
-            'nim' => 'required',
+            'nim' => 'required|min:11',
             'angkatan' => 'required',
             'file' => 'required',
         ];
@@ -38,6 +38,7 @@ class StoreMahasiswaRequest extends FormRequest
             'uuid_mitra.required' => 'kolom mitra harus di isi',
             'nama_mahasiswa.required' => 'kolom nama mahasiswa harus di isi',
             'nim.required' => 'kolom nim harus di isi',
+            'nim.min' => 'kolom nim harus berisi 11 karakter',
             'angkatan.required' => 'kolom angkatan harus di isi',
             'file.required' => 'kolom file harus di isi',
         ];
