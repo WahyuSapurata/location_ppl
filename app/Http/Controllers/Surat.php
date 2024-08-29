@@ -41,39 +41,72 @@ class Surat extends BaseController
         // Memisahkan tanggal berdasarkan kata kunci "to"
         $dateParts = explode(' to ', $request->tanggal);
 
+        // Pastikan tanggal memiliki dua bagian (awal dan akhir)
+        if (count($dateParts) !== 2) {
+            return $this->sendError('Format tanggal tidak valid', 'Tanggal harus dipisahkan dengan kata kunci "to"', 400);
+        }
+
         // $dateParts[0] akan berisi tanggal awal dan $dateParts[1] akan berisi tanggal akhir
         $startDateStr = trim($dateParts[0]);
         $endDateStr = trim($dateParts[1]);
 
+        // Ubah string tanggal menjadi objek Carbon atau format tanggal yang sesuai
+        $startDate = \Carbon\Carbon::parse($startDateStr);
+        $endDate = \Carbon\Carbon::parse($endDateStr);
+
+        // Hitung jumlah data mahasiswa
         $jumlahData = Mahasiswa::count();
 
-        $dataMahasiswa = Mahasiswa::where('uuid', $params)->first();
-        $dataMahasiswa->uuid_dosen = $request->uuid_dosen;
-        $dataMahasiswa->save();
+        // Pisahkan UUID yang dipisahkan koma menjadi array
+        $uuidArray = explode(',', $params);
+
+        // Hapus spasi yang mungkin ada di sekitar UUID
+        $uuidArray = array_map('trim', $uuidArray);
+
+        // Ambil data mahasiswa berdasarkan UUID yang ada dalam array
+        $dataMahasiswaList = Mahasiswa::whereIn('uuid', $uuidArray)->get();
+
+        // Inisialisasi variabel untuk data mahasiswa terakhir
+        $lastDataMahasiswa = [];
+
+        foreach ($dataMahasiswaList as $item) {
+            // Update data mahasiswa
+            $item->uuid_dosen = $request->uuid_dosen;
+            $item->save();
+
+            // Simpan data mahasiswa terakhir untuk digunakan dalam pembuatan PDF dan pengiriman email
+            $lastDataMahasiswa[] = $item;
+        }
+
+        if (empty($lastDataMahasiswa)) {
+            return $this->sendError('Tidak ada data mahasiswa yang diperbarui', 'Pastikan UUID yang diberikan valid', 404);
+        }
 
         $mailData = [
             'nomor' => $jumlahData,
             'mitra' => $request->mitra,
             'tanggal' => $startDateStr . ' s/d ' . $endDateStr,
-            'nama_mahasiswa' => $dataMahasiswa->nama_mahasiswa,
-            'nim' => $dataMahasiswa->nim,
+            'data_mahasiswa' => $lastDataMahasiswa,
         ];
 
         // Generate PDF
         $html = view('admin.surat.pdf', compact('mailData'))->render();
 
-        $pdfFileName = 'Surat PPl ' . $dataMahasiswa->nama_mahasiswa . time() . '.pdf';
-
+        $pdfFileName = 'Surat PPl ' . time() . '.pdf';
         $pdfFilePath = 'pdf/' . $pdfFileName; // Direktori dalam direktori public
 
         SnappyPdf::loadHTML($html)->save(public_path($pdfFilePath));
 
-        $dataMahasiswa->file_surat = $pdfFileName;
-        $dataMahasiswa->save();
+        // Send Email with Attachment to each student
+        foreach ($lastDataMahasiswa as $dataMahasiswa) {
+            // Update data mahasiswa dengan path file PDF
+            $dataMahasiswa->file_surat = $pdfFileName;
+            $dataMahasiswa->save();
 
-        // Send Email with Attachment
-        Mail::to($dataMahasiswa->nim . '@uin-alauddin.ac.id')->send(new Email($mailData, $pdfFilePath));
+            // Send Email with Attachment
+            Mail::to($dataMahasiswa->nim . '@uin-alauddin.ac.id')->send(new Email($mailData, $pdfFilePath));
+        }
 
-        return $this->sendResponse($dataMahasiswa, 'Added data success');
+        return $this->sendResponse($lastDataMahasiswa, 'Added data success');
     }
 }

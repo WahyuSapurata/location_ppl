@@ -1,4 +1,18 @@
 @extends('layouts.layout')
+@section('button')
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
+            data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+            class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+            <!--begin::Title-->
+            <button class="btn btn-primary btn-sm disabled-link" data-kt-drawer-show="true" data-kt-drawer-target="#side_form"
+                id="button-side-form">Kirim Data</button>
+            <!--end::Title-->
+        </div>
+        <!--end::Page title-->
+    </div>
+@endsection
 @section('content')
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
@@ -130,6 +144,8 @@
     <script>
         let control = new Control();
 
+        let selectedUUIDs = []; // Menyimpan UUID yang dipilih
+
         $(".kt_datepicker_7").flatpickr({
             altInput: true,
             altFormat: "d-m-Y",
@@ -138,26 +154,67 @@
         });
 
         $(document).on('click', '#button-side-form', function() {
+            let url = '/admin/show-mahasiswa/' + selectedUUIDs;
+            control.push_select_mitra(url, '#mitra_select');
             control.overlay_form('Tambah', 'Mahasiswa');
         })
 
+        // Fungsi untuk menonaktifkan semua checkbox dan menghapus UUID yang tidak ditemukan
+        function uncheckSelectedCheckboxes() {
+            const uuidsToRemove = [];
+
+            selectedUUIDs.forEach((uuid, index) => {
+                const checkbox = document.querySelector(`.checkbox-uuid[data-uuid="${uuid}"]`);
+                if (checkbox) {
+                    checkbox.checked = false;
+                    uuidsToRemove.push(uuid);
+                } else {
+                    console.log(`Checkbox with UUID ${uuid} not found.`);
+                    // Tambahkan UUID yang akan dihapus ke dalam daftar
+                }
+            });
+
+            // Hapus UUID yang tidak ditemukan dari array
+            uuidsToRemove.forEach(uuidToRemove => {
+                selectedUUIDs = selectedUUIDs.filter(uuid => uuid !== uuidToRemove);
+            });
+        }
+
+        // Fungsi untuk menangani peristiwa klik checkbox
+        function handleCheckboxClick(uuid) {
+            // Cek apakah UUID sudah dipilih sebelumnya
+            var index = selectedUUIDs.indexOf(uuid);
+
+            if (index !== -1) {
+                // Jika sudah dipilih, hapus dari daftar
+                selectedUUIDs.splice(index, 1);
+            } else {
+                // Jika belum dipilih, tambahkan ke daftar
+                selectedUUIDs.push(uuid);
+            }
+
+            // Periksa apakah ada UUID yang dipilih
+            var cetakButton = document.getElementById('button-side-form');
+            if (selectedUUIDs.length > 0) {
+                // Jika ada, hapus class 'disabled-link'
+                cetakButton.classList.remove('disabled-link');
+            } else {
+                // Jika tidak ada, tambahkan class 'disabled-link'
+                cetakButton.classList.add('disabled-link');
+            }
+        }
+
         $(document).on('submit', ".form-data", function(e) {
             e.preventDefault();
-            let type = $(this).attr('data-type');
-            if (type == 'add') {
-                control.submitFormMultipartData('/admin/add-mahasiswa', 'Tambah',
-                    'Mahasiswa',
-                    'POST');
-            } else {
-                let uuid = $("input[name='uuid']").val();
-                control.submitFormMultipartData('/admin/add-surat/' + uuid, 'Kirim',
-                    'Surat', 'POST');
-            }
+            control.submitFormMultipartData('/admin/add-surat/' + selectedUUIDs, 'Kirim',
+                'Surat', 'POST');
+            uncheckSelectedCheckboxes();
         });
 
         $(document).on('click', '.button-update', function(e) {
             e.preventDefault();
-            let url = '/admin/show-mahasiswa/' + $(this).attr('data-uuid');
+            let url = '/admin/show-mahasiswa/' + selectedUUIDs;
+            control.push_select_mitra(url, '#mitra_select');
             control.overlay_form('Update', 'Mahasiswa', url);
         })
 
@@ -172,6 +229,7 @@
             e.preventDefault();
             control.searchTable(this.value);
         })
+
         let columns = [{
             data: null,
             className: 'text-center',
@@ -277,10 +335,7 @@
                     `;
                 } else {
                     return `
-                <a href="javascript:;" type="button" data-uuid="${data}" data-kt-drawer-show="true" data-kt-drawer-target="#side_form" class="btn btn-primary button-update btn-icon btn-sm">
-                    <img src="{{ url('admin/assets/media/icons/aside/suratdef.svg') }}"
-                                alt="">
-                </a>
+                    <input class="checkbox-uuid" type="checkbox" data-uuid="${data}" onclick="handleCheckboxClick('${data}')" />
 
                 <a href="javascript:;" type="button" data-uuid="${data}" data-label="Mahasiswa" class="btn btn-danger button-delete btn-icon btn-sm">
 
@@ -295,8 +350,6 @@
                     </svg>
 
                 </a>
-
-
                 `;
                 }
             },
@@ -304,7 +357,6 @@
 
         $(function() {
             control.push_select_surat2('/admin/get-dosen', '#dosen_select');
-            control.push_select_mitra('/admin/get-mahasiswa', '#mitra_select');
             control.initDatatable('/admin/get-mahasiswa', columns, columnDefs);
         })
     </script>

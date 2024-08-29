@@ -389,3 +389,9 @@ th[rowspan] {
 .select2-results__options {
     text-transform: capitalize;
 }
+
+.disabled-link {
+    pointer-events: none;
+    opacity: 0.5;
+    /* Atau sesuaikan dengan level transparansi yang diinginkan */
+}

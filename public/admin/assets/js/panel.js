@@ -526,22 +526,32 @@ class Control {
             url: url,
             method: "GET",
             success: function (res) {
-                $(element).html("");
-                let html = "<option></option>";
+                $(element).empty(); // Menghapus konten sebelumnya
+                let uniqueUUIDs = new Set(); // Menggunakan Set untuk menghindari duplikat
+
                 // Loop melalui data yang sudah dipilih
                 res.data.forEach(item => {
-                    $.each(item.mitra, function (x, y) {
-                        html += `<option value="${y}">${y}</option>`;
-                    })
+                    if (Array.isArray(item.uuid_mitra)) {
+                        item.uuid_mitra.forEach(y => {
+                            uniqueUUIDs.add(y); // Menambahkan UUID ke Set
+                        });
+                    }
                 });
 
-                $(element).html(html);
+                // Membuat HTML option
+                let html = "<option></option>";
+                uniqueUUIDs.forEach(uuid => {
+                    html += `<option value="${uuid}">${uuid}</option>`;
+                });
+
+                $(element).html(html); // Update elemen select dengan HTML yang baru
             },
             error: function (xhr) {
-                alert("gagal");
+                alert("Gagal mengambil data: " + xhr.statusText); // Menampilkan pesan kesalahan
             },
         });
     }
+
 
     push_select2(url, element) {
         $.ajax({

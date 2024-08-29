@@ -467,7 +467,6 @@ License: For each use you must have a valid license purchased only from above li
             }
         });
 
-
         $(document).ready(function() {
             $('#selectMitra').on('change', function() {
                 var selectedOptions = $(this).val();

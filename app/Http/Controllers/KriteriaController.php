@@ -10,7 +10,7 @@ class KriteriaController extends BaseController
 {
     public function index()
     {
-        $module = 'Kriteria';
+        $module = 'Minat';
         return view('admin.kriteria.index', compact('module'));
     }
 

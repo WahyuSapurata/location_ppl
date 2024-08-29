@@ -76,7 +76,7 @@
                         <!--end::Svg Icon-->
                     </span>
                     <span class="menu-title"
-                        style="{{ $path[1] === 'kriteria' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Kriteria</span>
+                        style="{{ $path[1] === 'kriteria' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Minat</span>
                 </a>
             </div>
 

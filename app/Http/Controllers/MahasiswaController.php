@@ -61,12 +61,19 @@ class MahasiswaController extends BaseController
 
     public function show($params)
     {
-        $data = array();
         try {
-            $data = Mahasiswa::where('uuid', $params)->first();
+            // Pisahkan UUID yang dipisahkan koma menjadi array
+            $uuidArray = explode(',', $params);
+
+            // Hapus spasi yang mungkin ada di sekitar UUID
+            $uuidArray = array_map('trim', $uuidArray);
+
+            // Ambil data berdasarkan UUID yang ada dalam array
+            $data = Mahasiswa::whereIn('uuid', $uuidArray)->get();
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), $e->getMessage(), 400);
+            return $this->sendError($e->getMessage(), $e->getMessage(), 500);
         }
+
         return $this->sendResponse($data, 'Show data success');
     }
 

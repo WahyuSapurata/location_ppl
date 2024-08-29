@@ -130,11 +130,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td style="border: 1px solid #000;">1.</td>
-                                <td style="border: 1px solid #000;">{{ $mailData['nim'] }}</td>
-                                <td style="border: 1px solid #000;">{{ $mailData['nama_mahasiswa'] }}</td>
-                            </tr>
+                            @foreach ($mailData['data_mahasiswa'] as $index => $item)
+                                <tr>
+                                    <td style="border: 1px solid #000;">{{ $index + 1 }}</td>
+                                    <td style="border: 1px solid #000;">{{ $item->nim }}</td>
+                                    <td style="border: 1px solid #000;">{{ $item->nama_mahasiswa }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
